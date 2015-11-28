@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  FlyPlayingViewController.h
 //  音乐播放器
 //
 //  Created by mac on 15/11/27.
@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface FlyPlayingViewController : UIViewController
 
-@property (strong, nonatomic) UIWindow *window;
 
+-(void)show;
 
 @end
-
