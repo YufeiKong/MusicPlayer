@@ -19,6 +19,10 @@
 //添加计时器
 @property(nonatomic,strong)NSTimer *progressTimer;
 
+
+//调节播放器
+@property(nonatomic,strong)AVAudioPlayer *player;
+
 @property (weak, nonatomic) IBOutlet UILabel *songName;
 @property (weak, nonatomic) IBOutlet UILabel *singer;
 
@@ -26,6 +30,15 @@
 
 //歌曲总时长
 @property (weak, nonatomic) IBOutlet UILabel *totalTIme;
+
+//推动按钮与左边的约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *silderLeftConstraint;
+//拖动按钮
+@property (weak, nonatomic) IBOutlet UIButton *silderButton;
+
+//点击进度条背景
+- (IBAction)tapProgressBackground:(UITapGestureRecognizer *)sender;
+
 @end
 
 @implementation FlyPlayingViewController
@@ -124,12 +137,14 @@
         
         
         //播放音乐
-        AVAudioPlayer *player = [HMAudioTool playMusicWithName:playingMusic.filename];
+       self.player = [HMAudioTool playMusicWithName:playingMusic.filename];
         
-        self.totalTIme.text = [self stringWithTime:player.duration];
+        self.totalTIme.text = [self stringWithTime:self.player.duration];
     
        //添加计时器
        [self addProgressTimer];
+    
+       [self updateInfo];
   
 
 }
@@ -153,7 +168,7 @@
 #pragma mark添加计时器
 -(void)addProgressTimer{
 
-    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateInfo) userInfo:nil repeats:nil];
+    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateInfo) userInfo:nil repeats:YES];
     
     [[NSRunLoop mainRunLoop]addTimer:self.progressTimer forMode:NSRunLoopCommonModes];
 
@@ -171,11 +186,21 @@
 
 }
 
-//实现方法
+//实现方法  随着播放进度更新进度条
 -(void)updateInfo{
 
 
-    NSLog(@"更改数据");
+   // NSLog(@"更改数据");
+    
+    //计算播放比例
+    CGFloat progressRatio = self.player.currentTime / self.player.duration;
+    self.silderLeftConstraint.constant = progressRatio * (self.view.width - self.silderButton.width);
+    
+    NSString *currentTimer = [self stringWithTime:self.player.currentTime];
+    
+    [self.silderButton setTitle:currentTimer forState:UIControlStateNormal];
+    //计算当前进度
+    
 
 }
 - (void)viewDidLoad {
@@ -193,5 +218,33 @@
     return  [NSString stringWithFormat:@"%02ld:%02ld",minute,second];
 
 }
-
+//点击进度条改变进度
+- (IBAction)tapProgressBackground:(UITapGestureRecognizer *)sender {
+    
+    //获取点击位置
+    CGPoint point = [sender locationInView:sender.view];
+    
+    //改变sliderbutton的约束
+    if (point.x <= self.silderButton.width * 0.5) {
+        self.silderLeftConstraint.constant = 0;
+    }else if (point.x>=(self.view.width - self.silderButton.width * 0.5)){
+    
+        self.silderLeftConstraint.constant = self.view.width - self.silderButton.width;
+    
+    }else{
+    
+        self.silderLeftConstraint.constant = point.x - self.silderButton.width * 0.5;
+    
+    }
+    
+    //改变当前播放的时间
+    CGFloat progressRatio = self.silderLeftConstraint.constant / (self.view.width - self.silderButton.width);
+    CGFloat currentTime = progressRatio * self.player.duration;
+    
+    self.player.currentTime  =currentTime;
+    
+    //更新时间
+    [self updateInfo];
+    
+}
 @end

@@ -6,6 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlyPlayingViewController">
             <connections>
+                <outlet property="silderButton" destination="Hiv-lH-sjL" id="rZZ-ZD-pP3"/>
+                <outlet property="silderLeftConstraint" destination="b7H-dC-Irb" id="6eB-AF-IT4"/>
                 <outlet property="singer" destination="IZd-aX-KWf" id="PNG-Ry-lrE"/>
                 <outlet property="singerIcon" destination="dza-E2-evo" id="hg6-zM-PWe"/>
                 <outlet property="songName" destination="mYW-Fv-ymY" id="UVc-yE-hyu"/>
@@ -90,6 +92,9 @@
                                 <constraint firstItem="Tlb-pb-oOt" firstAttribute="top" secondItem="54P-cl-bML" secondAttribute="top" id="9NK-5d-1wA"/>
                                 <constraint firstItem="Tlb-pb-oOt" firstAttribute="leading" secondItem="54P-cl-bML" secondAttribute="leading" id="GVQ-jP-y2x"/>
                             </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="tn8-Nj-m3I" appends="YES" id="TUh-BV-Qov"/>
+                            </connections>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hiv-lH-sjL" userLabel="拖动按钮">
                             <rect key="frame" x="0.0" y="47" width="41" height="21"/>
@@ -180,8 +185,16 @@
                 <constraint firstItem="dkM-43-gh2" firstAttribute="leading" secondItem="cTB-7s-dm4" secondAttribute="leading" constant="10" id="tFD-ew-dVf"/>
                 <constraint firstItem="fSR-hn-0J1" firstAttribute="height" secondItem="dkM-43-gh2" secondAttribute="height" id="wcc-2t-df8"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="tn8-Nj-m3I" appends="YES" id="ag2-AN-Xww"/>
+            </connections>
             <point key="canvasLocation" x="394" y="259"/>
         </view>
+        <tapGestureRecognizer id="tn8-Nj-m3I">
+            <connections>
+                <action selector="tapProgressBackground:" destination="-1" id="2w1-0K-CQJ"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="lyric_normal" width="41" height="48"/>
