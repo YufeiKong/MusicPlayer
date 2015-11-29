@@ -12,6 +12,8 @@
 		0419309F1C094A0600781DD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0419309D1C094A0600781DD4 /* LaunchScreen.storyboard */; };
 		041930B11C094D6C00781DD4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 041930AB1C094D6C00781DD4 /* AppDelegate.m */; settings = {ASSET_TAGS = (); }; };
 		041930B21C094D6C00781DD4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 041930AE1C094D6C00781DD4 /* main.m */; settings = {ASSET_TAGS = (); }; };
+		046E5B7B1C098A76008F14D4 /* FlyMusicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E5B7A1C098A76008F14D4 /* FlyMusicTool.m */; settings = {ASSET_TAGS = (); }; };
+		046E5B7E1C0998F5008F14D4 /* HMAudioTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E5B7D1C0998F5008F14D4 /* HMAudioTool.m */; settings = {ASSET_TAGS = (); }; };
 		04FAF8781C094FE9007C406B /* FlyMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FAF8771C094FE9007C406B /* FlyMusicViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04FAF8A61C0952CF007C406B /* bb@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04FAF87B1C0952CF007C406B /* bb@2x.jpg */; settings = {ASSET_TAGS = (); }; };
 		04FAF8A71C0952CF007C406B /* bb_icon@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04FAF87C1C0952CF007C406B /* bb_icon@2x.jpg */; settings = {ASSET_TAGS = (); }; };
@@ -79,6 +81,10 @@
 		041930AA1C094D6C00781DD4 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		041930AB1C094D6C00781DD4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		041930AE1C094D6C00781DD4 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		046E5B791C098A76008F14D4 /* FlyMusicTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyMusicTool.h; sourceTree = "<group>"; };
+		046E5B7A1C098A76008F14D4 /* FlyMusicTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyMusicTool.m; sourceTree = "<group>"; };
+		046E5B7C1C0998F5008F14D4 /* HMAudioTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMAudioTool.h; sourceTree = "<group>"; };
+		046E5B7D1C0998F5008F14D4 /* HMAudioTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMAudioTool.m; sourceTree = "<group>"; };
 		04FAF8761C094FE9007C406B /* FlyMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyMusicViewController.h; sourceTree = "<group>"; };
 		04FAF8771C094FE9007C406B /* FlyMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyMusicViewController.m; sourceTree = "<group>"; };
 		04FAF87B1C0952CF007C406B /* bb@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bb@2x.jpg"; sourceTree = "<group>"; };
@@ -203,10 +209,10 @@
 		041930A61C094D6C00781DD4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				041930AF1C094D6C00781DD4 /* Tools */,
 				041930A71C094D6C00781DD4 /* Controller */,
 				041930A81C094D6C00781DD4 /* Model */,
 				041930A91C094D6C00781DD4 /* Other */,
-				041930AF1C094D6C00781DD4 /* Tools */,
 				041930B01C094D6C00781DD4 /* View */,
 			);
 			path = Classes;
@@ -267,6 +273,10 @@
 		041930AF1C094D6C00781DD4 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				046E5B7C1C0998F5008F14D4 /* HMAudioTool.h */,
+				046E5B7D1C0998F5008F14D4 /* HMAudioTool.m */,
+				046E5B791C098A76008F14D4 /* FlyMusicTool.h */,
+				046E5B7A1C098A76008F14D4 /* FlyMusicTool.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -503,8 +513,10 @@
 				04FAF8E91C095530007C406B /* MJMethod.m in Sources */,
 				04FAF8F41C095BA2007C406B /* UIView+AdjustFrame.m in Sources */,
 				04FAF8781C094FE9007C406B /* FlyMusicViewController.m in Sources */,
+				046E5B7B1C098A76008F14D4 /* FlyMusicTool.m in Sources */,
 				041930B11C094D6C00781DD4 /* AppDelegate.m in Sources */,
 				04FAF8EE1C095530007C406B /* NSObject+MJMember.m in Sources */,
+				046E5B7E1C0998F5008F14D4 /* HMAudioTool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,13 +8,14 @@
 
 #import "FlyMusicViewController.h"
 #import "FlyMusic.h"
+#import "FlyMusicTool.h"
 #import "MJExtension.h"
 #import "UIImage+Circle.h"
 #import "FlyPlayingViewController.h"
 
 @interface FlyMusicViewController ()
 
-@property(nonatomic,strong)NSArray *musics;
+//@property(nonatomic,strong)NSArray *musics;
 
 //播放的控制器
 @property(nonatomic,strong)FlyPlayingViewController *playingVC;
@@ -25,16 +26,16 @@
 
 #pragma mark  懒加载
 
--(NSArray *)musics{
-    if (_musics==nil) {
-        
-        self.musics = [FlyMusic objectArrayWithFilename:@"Musics.plist"];
-        
-        
-    }
-
-    return _musics;
-}
+//-(NSArray *)musics{
+//    if (_musics==nil) {
+//        
+//        self.musics = [FlyMusic objectArrayWithFilename:@"Musics.plist"];
+//        
+//        
+//    }
+//
+//    return _musics;
+//}
 
 
 -(FlyPlayingViewController *)playingVC{
@@ -61,6 +62,11 @@
     //让cell变为不选中状态
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    FlyMusic *music = [FlyMusicTool musics][indexPath.row];
+    
+    //播放音乐
+    [FlyMusicTool settingPlayingMusic:music];
+    
     
     //弹出播放控制器
     [self.playingVC show];
@@ -74,7 +80,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
-    return  self.musics.count;
+    return [FlyMusicTool musics].count;
 
 }
 
@@ -93,7 +99,7 @@
     
     //取出模型
     
-    FlyMusic *musics = self.musics[indexPath.row];
+    FlyMusic *musics = [FlyMusicTool musics][indexPath.row];
     
     cell.imageView.image = [UIImage circleImageWithName:musics.icon borderWidth:3.0 borderColor:[UIColor purpleColor]];
     cell.textLabel.text = musics.name;
