@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlyPlayingViewController">
             <connections>
+                <outlet property="showTimeLabel" destination="eL1-Ce-Rya" id="ofB-jv-TpE"/>
                 <outlet property="silderButton" destination="Hiv-lH-sjL" id="rZZ-ZD-pP3"/>
                 <outlet property="silderLeftConstraint" destination="b7H-dC-Irb" id="6eB-AF-IT4"/>
                 <outlet property="singer" destination="IZd-aX-KWf" id="PNG-Ry-lrE"/>
@@ -107,6 +108,9 @@
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="6Rr-6O-tU8" appends="YES" id="fTJ-7g-fwV"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="李克勤" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZd-aX-KWf" userLabel="歌手Label">
                             <rect key="frame" x="8" y="31" width="39" height="16"/>
@@ -195,6 +199,11 @@
                 <action selector="tapProgressBackground:" destination="-1" id="2w1-0K-CQJ"/>
             </connections>
         </tapGestureRecognizer>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="6Rr-6O-tU8">
+            <connections>
+                <action selector="panSilderbutton:" destination="-1" id="vWd-6P-JAM"/>
+            </connections>
+        </panGestureRecognizer>
     </objects>
     <resources>
         <image name="lyric_normal" width="41" height="48"/>

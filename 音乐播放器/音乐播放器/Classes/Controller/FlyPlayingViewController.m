@@ -39,6 +39,10 @@
 //点击进度条背景
 - (IBAction)tapProgressBackground:(UITapGestureRecognizer *)sender;
 
+//拖拽按钮改变进度
+- (IBAction)panSilderbutton:(UIPanGestureRecognizer *)sender;
+//拖拽显示时间label
+@property (weak, nonatomic) IBOutlet UILabel *showTimeLabel;
 @end
 
 @implementation FlyPlayingViewController
@@ -206,6 +210,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    //设置显示时间的label半径
+    self.showTimeLabel.layer.cornerRadius = 5.0;
+    //切割
+    self.showTimeLabel.layer.masksToBounds = YES;
+    
+    
 }
 
 #pragma mark  私有方法
@@ -245,6 +256,60 @@
     
     //更新时间
     [self updateInfo];
+    
+}
+//拖拽按钮改变进度
+- (IBAction)panSilderbutton:(UIPanGestureRecognizer *)sender {
+    
+    //获取用户拖拽位移
+    CGPoint point = [sender locationInView:sender.view];
+    
+    [sender setTranslation:CGPointZero inView:sender.view];
+    
+    //改变button的约束
+    if (self.silderLeftConstraint.constant + point.x <=0) {
+        self.silderLeftConstraint.constant = 0;
+    }else if (self.silderLeftConstraint.constant + point.x >= self.view.width - self.silderButton.width){
+    
+        self.silderLeftConstraint.constant = self.view.width - self.silderButton.width;
+    
+    
+    }else{
+    
+        self.silderLeftConstraint.constant += point.x;
+    
+    }
+    
+    
+    //获取拖拽进度对应的时间
+    CGFloat progressRatio = self.silderLeftConstraint.constant / (self.view.width - self.silderButton.width);
+    CGFloat currentTime = progressRatio * self.player.duration;
+    
+    //更新文字
+    
+    NSString *currentTimeStr = [self stringWithTime:currentTime];
+    
+    [self.silderButton setTitle:currentTimeStr forState:UIControlStateNormal];
+    self.showTimeLabel.text = currentTimeStr;
+    
+    
+    //监听拖拽状态
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        //移除定时器
+        [self removeProgressTimer];
+        
+        self.showTimeLabel.hidden = false;
+    }else if (sender.state == UIGestureRecognizerStateEnded){
+        //更新播放时长
+        self.player.currentTime = currentTime;
+        
+        //添加计时器
+        [self addProgressTimer];
+        
+        //让显示时间的label隐藏
+        self.showTimeLabel.hidden = YES;
+    
+    }
     
 }
 @end
