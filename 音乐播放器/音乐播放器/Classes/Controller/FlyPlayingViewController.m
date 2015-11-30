@@ -11,8 +11,9 @@
 #import "FlyMusic.h"
 #import "FlyMusicTool.h"
 #import "HMAudioTool.h"
+#import "FlyLrcView.h"
 
-@interface FlyPlayingViewController ()
+@interface FlyPlayingViewController ()<AVAudioPlayerDelegate>
 //记录当前播放的音乐
 @property(nonatomic,strong)FlyMusic *playingMusic;
 
@@ -43,6 +44,19 @@
 - (IBAction)panSilderbutton:(UIPanGestureRecognizer *)sender;
 //拖拽显示时间label
 @property (weak, nonatomic) IBOutlet UILabel *showTimeLabel;
+
+
+
+- (IBAction)playMusic;
+//点击播放或暂停音乐
+@property (weak, nonatomic) IBOutlet UIButton *playMusicClick;
+//点击歌词按钮
+- (IBAction)lrcButtonClick:(UIButton *)sender;
+
+
+//显示歌词view
+@property (weak, nonatomic) IBOutlet FlyLrcView *lrcView;
+
 @end
 
 @implementation FlyPlayingViewController
@@ -142,6 +156,9 @@
         
         //播放音乐
        self.player = [HMAudioTool playMusicWithName:playingMusic.filename];
+    
+        //设置代理
+    self.player.delegate = self;
         
         self.totalTIme.text = [self stringWithTime:self.player.duration];
     
@@ -149,6 +166,9 @@
        [self addProgressTimer];
     
        [self updateInfo];
+    
+    //改变按钮选中的状态
+    self.playMusicClick.selected = NO;
   
 
 }
@@ -240,7 +260,7 @@
         self.silderLeftConstraint.constant = 0;
     }else if (point.x>=(self.view.width - self.silderButton.width * 0.5)){
     
-        self.silderLeftConstraint.constant = self.view.width - self.silderButton.width;
+        self.silderLeftConstraint.constant = self.view.width - self.silderButton.width - 1;
     
     }else{
     
@@ -271,7 +291,7 @@
         self.silderLeftConstraint.constant = 0;
     }else if (self.silderLeftConstraint.constant + point.x >= self.view.width - self.silderButton.width){
     
-        self.silderLeftConstraint.constant = self.view.width - self.silderButton.width;
+        self.silderLeftConstraint.constant = self.view.width - self.silderButton.width - 1;
     
     
     }else{
@@ -310,6 +330,77 @@
         self.showTimeLabel.hidden = YES;
     
     }
+    
+}
+
+//暂停或播放音乐
+- (IBAction)playMusic {
+    
+    
+    self.playMusicClick.selected = !self.playMusicClick.selected;
+    
+    if (self.player.playing) {
+        [self.player pause];
+        [self removeProgressTimer];
+    }else{
+    
+    
+    [self.player play];
+    [self addProgressTimer];
+    
+    }
+    
+    
+    
+}
+
+//上一首音乐
+- (IBAction)preiousMusic {
+    [self  stopPlayingMusic];
+    [FlyMusicTool previousMusic];
+    
+    [self startPlaying];
+    
+}
+
+//下一首音乐
+- (IBAction)nextMusic {
+    
+    [self  stopPlayingMusic];
+    [FlyMusicTool nextMusic];
+    
+    [self startPlaying];
+    
+}
+
+#pragma mark  player代理方法
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+
+    if (flag) {
+        
+        [self nextMusic];
+        
+    }
+}
+
+//被打断
+-(void)audioPlayerBeginInterruption:(AVAudioPlayer *)player{
+
+    [self playMusic];
+
+}
+
+-(void)audioPlayerEndInterruption:(AVAudioPlayer *)player{
+
+    [self playMusic];
+
+}
+//点击歌词按钮
+
+- (IBAction)lrcButtonClick:(UIButton *)sender {
+    
+    sender.selected = !sender.selected;
+    self.lrcView.hidden = !self.lrcView.hidden;
     
 }
 @end
