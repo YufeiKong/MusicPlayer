@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class FlyLrcLine;
 @interface FlyLrcCell : UITableViewCell
 
 
+@property(nonatomic,strong)FlyLrcLine *lrcLine;
 +(instancetype)lrcCellWithTableView:(UITableView *)tableView;
 
 @end

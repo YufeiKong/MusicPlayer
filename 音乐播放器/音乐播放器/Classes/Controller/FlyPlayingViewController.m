@@ -152,6 +152,9 @@
         self.songName.text = playingMusic.name;
         self.singer.text = playingMusic.singer;
         self.singerIcon.image = [UIImage imageNamed:playingMusic.icon];
+        //歌词
+    self.lrcView.lrcname = playingMusic.lrcname;
+    
         
         
         //播放音乐

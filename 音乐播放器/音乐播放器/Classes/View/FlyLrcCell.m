@@ -7,6 +7,7 @@
 //
 
 #import "FlyLrcCell.h"
+#import "FlyLrcLine.h"
 
 @implementation FlyLrcCell
 
@@ -26,17 +27,16 @@ static NSString *ID = @"LrcCell";
         //选中cell模式
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-
-        
-        
     }
-    
-   
-
     return  cell;
+ }
+
+-(void)setLrcLine:(FlyLrcLine *)lrcLine{
+
+    _lrcLine = lrcLine;
     
+    self.textLabel.text = lrcLine.text;
 
 }
-
 
 @end

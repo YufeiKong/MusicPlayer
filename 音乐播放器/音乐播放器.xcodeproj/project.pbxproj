@@ -18,6 +18,7 @@
 		0471C8671C0BDE3400EB30F5 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C8651C0BDE3400EB30F5 /* UIImage+BoxBlur.m */; settings = {ASSET_TAGS = (); }; };
 		0471C86A1C0BDE6500EB30F5 /* FlyLrcView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C8691C0BDE6500EB30F5 /* FlyLrcView.m */; settings = {ASSET_TAGS = (); }; };
 		0471C86D1C0BE6FE00EB30F5 /* FlyLrcCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C86C1C0BE6FE00EB30F5 /* FlyLrcCell.m */; settings = {ASSET_TAGS = (); }; };
+		0471C8701C0C254000EB30F5 /* FlyLrcLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0471C86F1C0C254000EB30F5 /* FlyLrcLine.m */; settings = {ASSET_TAGS = (); }; };
 		04FAF8781C094FE9007C406B /* FlyMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FAF8771C094FE9007C406B /* FlyMusicViewController.m */; settings = {ASSET_TAGS = (); }; };
 		04FAF8A61C0952CF007C406B /* bb@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04FAF87B1C0952CF007C406B /* bb@2x.jpg */; settings = {ASSET_TAGS = (); }; };
 		04FAF8A71C0952CF007C406B /* bb_icon@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 04FAF87C1C0952CF007C406B /* bb_icon@2x.jpg */; settings = {ASSET_TAGS = (); }; };
@@ -97,6 +98,8 @@
 		0471C8691C0BDE6500EB30F5 /* FlyLrcView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlyLrcView.m; path = ../Model/FlyLrcView.m; sourceTree = "<group>"; };
 		0471C86B1C0BE6FE00EB30F5 /* FlyLrcCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyLrcCell.h; sourceTree = "<group>"; };
 		0471C86C1C0BE6FE00EB30F5 /* FlyLrcCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyLrcCell.m; sourceTree = "<group>"; };
+		0471C86E1C0C254000EB30F5 /* FlyLrcLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyLrcLine.h; sourceTree = "<group>"; };
+		0471C86F1C0C254000EB30F5 /* FlyLrcLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyLrcLine.m; sourceTree = "<group>"; };
 		04FAF8761C094FE9007C406B /* FlyMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyMusicViewController.h; sourceTree = "<group>"; };
 		04FAF8771C094FE9007C406B /* FlyMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyMusicViewController.m; sourceTree = "<group>"; };
 		04FAF87B1C0952CF007C406B /* bb@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bb@2x.jpg"; sourceTree = "<group>"; };
@@ -247,6 +250,8 @@
 			children = (
 				04FAF8CF1C095346007C406B /* FlyMusic.h */,
 				04FAF8D01C095346007C406B /* FlyMusic.m */,
+				0471C86E1C0C254000EB30F5 /* FlyLrcLine.h */,
+				0471C86F1C0C254000EB30F5 /* FlyLrcLine.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -545,6 +550,7 @@
 				0471C86D1C0BE6FE00EB30F5 /* FlyLrcCell.m in Sources */,
 				04FAF8781C094FE9007C406B /* FlyMusicViewController.m in Sources */,
 				046E5B7B1C098A76008F14D4 /* FlyMusicTool.m in Sources */,
+				0471C8701C0C254000EB30F5 /* FlyLrcLine.m in Sources */,
 				041930B11C094D6C00781DD4 /* AppDelegate.m in Sources */,
 				04FAF8EE1C095530007C406B /* NSObject+MJMember.m in Sources */,
 				0471C8671C0BDE3400EB30F5 /* UIImage+BoxBlur.m in Sources */,

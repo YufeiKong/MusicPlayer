@@ -10,4 +10,7 @@
 
 @interface FlyLrcView : DRNRealTimeBlurView
 
+//歌词
+@property(nonatomic,copy)NSString *lrcname;
+
 @end
