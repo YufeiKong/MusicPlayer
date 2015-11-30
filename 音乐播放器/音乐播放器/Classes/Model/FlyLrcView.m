@@ -15,7 +15,7 @@
 
 @property(nonatomic,weak)UITableView *tableView;
 @property(nonatomic,strong)NSArray *lrcLines;
-
+@property(nonatomic,assign) NSInteger  currentIndex;
 @end
 
 @implementation FlyLrcView
@@ -147,6 +147,53 @@
     self.lrcLines = tempArray;
     //刷新数据
     [self.tableView reloadData];
+
+}
+
+
+//重写当前时间
+-(void)setCurrentTime:(NSTimeInterval)currentTime{
+
+    _currentTime = currentTime;
+    
+    //将传入的时间转换成字符串
+    NSInteger minute = currentTime /60;
+    NSInteger second = (NSInteger)currentTime % 60;
+    NSInteger milesecond = (currentTime - (NSInteger)currentTime)* 1000;
+    
+    NSString *currentStr = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",minute,second,milesecond];
+    
+    
+    //对比时间
+    NSInteger count = self.lrcLines.count;
+    
+    for (NSInteger i = 0; i<count; i++) {
+        
+        //取出当前歌词模型
+        FlyLrcLine *lrcline = self.lrcLines[i];
+        
+        //取出下一个歌词模型
+        NSInteger nextIndex = i + 1;
+        if (nextIndex < count) {
+            FlyLrcLine *nextLrcLine = self.lrcLines[nextIndex];
+            
+            //比较时间
+            if ([currentStr compare:lrcline.time]!=NSOrderedAscending && [currentStr compare:nextLrcLine.time] != NSOrderedDescending && self.currentIndex != i) {
+                self.currentIndex = i;
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                
+                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition: UITableViewScrollPositionTop animated:YES];
+                
+                
+            }
+            
+            
+        }
+        
+    }
+    
+
 
 }
 @end

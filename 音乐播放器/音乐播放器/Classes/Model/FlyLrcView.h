@@ -12,5 +12,7 @@
 
 //歌词
 @property(nonatomic,copy)NSString *lrcname;
+//记录歌词当前显示时间
+@property(nonatomic,assign)NSTimeInterval currentTime;
 
 @end

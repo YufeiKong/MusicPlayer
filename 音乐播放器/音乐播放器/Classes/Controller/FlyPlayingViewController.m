@@ -17,8 +17,11 @@
 //记录当前播放的音乐
 @property(nonatomic,strong)FlyMusic *playingMusic;
 
-//添加计时器
+//添加歌曲进度计时器
 @property(nonatomic,strong)NSTimer *progressTimer;
+
+//添加歌词进度计时器
+@property(nonatomic,strong)CADisplayLink *lrcTimer;
 
 
 //调节播放器
@@ -81,6 +84,7 @@
         
         //移除定时器
         [self removeProgressTimer];
+        [self removeLrcProgresstimer];
         
     }];
     
@@ -138,7 +142,7 @@
     if(self.playingMusic==playingMusic){
         
         [self addProgressTimer];
-        
+        [self addLrcProgresstimer];
         
         return;
         
@@ -167,8 +171,9 @@
     
        //添加计时器
        [self addProgressTimer];
-    
        [self updateInfo];
+       [self addLrcProgresstimer];
+       [self updateLRCInfo];
     
     //改变按钮选中的状态
     self.playMusicClick.selected = NO;
@@ -188,11 +193,12 @@
     
     //移除计时器
     [self removeProgressTimer];
+    [self removeLrcProgresstimer];
 
 }
 
 
-#pragma mark添加计时器
+#pragma mark添加歌曲进度计时器
 -(void)addProgressTimer{
 
     self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateInfo) userInfo:nil repeats:YES];
@@ -204,7 +210,7 @@
 }
 
 
-#pragma mark 移除计时器
+#pragma mark 移除歌曲进度计时器
 -(void)removeProgressTimer{
 
     [self.progressTimer invalidate];
@@ -213,11 +219,12 @@
 
 }
 
+
 //实现方法  随着播放进度更新进度条
 -(void)updateInfo{
-
-
-   // NSLog(@"更改数据");
+    
+    
+    // NSLog(@"更改数据");
     
     //计算播放比例
     CGFloat progressRatio = self.player.currentTime / self.player.duration;
@@ -226,10 +233,43 @@
     NSString *currentTimer = [self stringWithTime:self.player.currentTime];
     
     [self.silderButton setTitle:currentTimer forState:UIControlStateNormal];
-    //计算当前进度
+ 
+    
+    
+}
+
+#pragma mark 添加歌词进度计时器
+-(void)addLrcProgresstimer{
+
+    if (self.lrcView.hidden) {
+        return;
+    }
+    
+    self.lrcTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateLRCInfo)];
+    
+    [self.lrcTimer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    
     
 
 }
+
+
+#pragma mark 移除歌词进度计时器
+-(void)removeLrcProgresstimer{
+    
+    [self.lrcTimer invalidate];
+    self.lrcTimer = nil;
+    
+    
+}
+//实现方法  随着播放进度更新歌词
+-(void)updateLRCInfo{
+
+    self.lrcView.currentTime = self.player.currentTime;
+  
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -344,12 +384,14 @@
     
     if (self.player.playing) {
         [self.player pause];
+        [self removeLrcProgresstimer];
         [self removeProgressTimer];
     }else{
     
     
     [self.player play];
     [self addProgressTimer];
+    [self addLrcProgresstimer];
     
     }
     
@@ -404,6 +446,14 @@
     
     sender.selected = !sender.selected;
     self.lrcView.hidden = !self.lrcView.hidden;
+    
+    if (self.lrcView.hidden) {
+        [self removeLrcProgresstimer];
+    }else{
+    
+        [self addLrcProgresstimer];
+    
+    }
     
 }
 @end
