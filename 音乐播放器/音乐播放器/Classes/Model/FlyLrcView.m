@@ -49,6 +49,8 @@
     tableView.delegate = self;
     tableView.dataSource = self;
     
+    self.currentIndex = -1;
+    
     
     
     [self addSubview:tableView];
@@ -79,6 +81,12 @@
     
     cell.lrcLine = self.lrcLines[indexPath.row];
  
+    if (indexPath.row == self.currentIndex) {
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:18];
+    }else{
+    
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+    }
     
     return  cell;
 
@@ -153,6 +161,10 @@
 
 //重写当前时间
 -(void)setCurrentTime:(NSTimeInterval)currentTime{
+    if (_currentTime > currentTime) {
+        self.currentIndex = -1;
+    }
+    
 
     _currentTime = currentTime;
     
@@ -167,7 +179,7 @@
     //对比时间
     NSInteger count = self.lrcLines.count;
     
-    for (NSInteger i = 0; i<count; i++) {
+    for (NSInteger i =self.currentIndex + 1; i<count; i++) {
         
         //取出当前歌词模型
         FlyLrcLine *lrcline = self.lrcLines[i];
@@ -180,10 +192,13 @@
             //比较时间
             if ([currentStr compare:lrcline.time]!=NSOrderedAscending && [currentStr compare:nextLrcLine.time] != NSOrderedDescending && self.currentIndex != i) {
                 self.currentIndex = i;
+                NSIndexPath *currentIndex = [NSIndexPath indexPathForRow:self.currentIndex inSection:0];
+                NSIndexPath *nextIndex = [NSIndexPath indexPathForRow:i inSection:0];
                 
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [self.tableView reloadRowsAtIndexPaths:@[currentIndex,nextIndex] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView scrollToRowAtIndexPath:nextIndex atScrollPosition: UITableViewScrollPositionTop animated:YES];
                 
-                [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition: UITableViewScrollPositionTop animated:YES];
+                NSLog(@"%@----%@----%@",currentStr,lrcline.time,nextLrcLine.time);
                 
                 
             }
