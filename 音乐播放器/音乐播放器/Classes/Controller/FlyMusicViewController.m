@@ -101,7 +101,7 @@
     
     FlyMusic *musics = [FlyMusicTool musics][indexPath.row];
     
-    cell.imageView.image = [UIImage circleImageWithName:musics.icon borderWidth:3.0 borderColor:[UIColor purpleColor]];
+    cell.imageView.image = [UIImage circleImageWithName:musics.singerIcon borderWidth:1.0 borderColor:[UIColor purpleColor]];
     cell.textLabel.text = musics.name;
     cell.detailTextLabel.text=musics.singer;
     
